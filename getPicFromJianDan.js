@@ -4,10 +4,11 @@
 const express = require('express');
 //const router = express.Router();
 const path = require('path');
-let http = require("http");
-let fs = require("fs");
-let cheerio = require("cheerio");
-let request = require("request");
+const http = require("http");
+const fs = require("fs");
+const cheerio = require("cheerio");
+const request = require("request");
+const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36';
 
 for(let i=1;i<33;i++) {
     let url = `http://i.jandan.net/ooxx/page-${i}#comments`;
@@ -83,24 +84,12 @@ function printInfo(picListData) {
         let dirname = pic_src.substring(firstIndex,lastIndex);
         //console.log(dirname)
         //fs.mkdirSync(`../dist/static/img/${dirname}`);
-        request({uri: 'http:'+pic_src, encoding:'binary'}).on('error',(err)=>{console.log(err)}).pipe(fs.createWriteStream(path.join(`jiandan_large`,`${dirname}.jpg`)));
-                    console.log('\n');
-                    }
-                });
+        request({uri: 'http:'+pic_src, encoding:'binary', })
+            .on('error',(err)=>{
+                console.log(err)
+            })
+            .pipe(fs.createWriteStream(path.join(`jiandan_large`,`${dirname}.jpg`)));
+            console.log('\n');
+        }
+    });
 }
-
-/*
-const dirname = 'uploadImages'
-const hostdir = "../dist/static/"
-
-function mkdirSync(dirname) {
-  if (fs.existsSync(dirname)) {
-    return true;
-  } else {
-    if (mkdirSync(path.dirname(dirname))) {
-      fs.mkdirSync(dirname);
-      return true;
-    }
-  }
-  return false
-}*/
