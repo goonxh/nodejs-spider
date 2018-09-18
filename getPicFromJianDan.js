@@ -12,21 +12,21 @@ let request = require("request");
 for(let i=1;i<39;i++) {
     let url = `http://i.jandan.net/ooxx/page-${i}#comments`;
     http.get(url, function(res) {
-    let html = '';
-    // 获取页面数据
-    res.on('data', function(data) {
-        html += data;
+        let html = '';
+        // 获取页面数据
+        res.on('data', function(data) {
+            html += data;
+        });
+        // 数据获取结束
+        res.on('end', function() {
+            // 通过过滤页面信息获取实际需求的轮播图信息
+            let picListData = filterSlideList(html);
+            // 打印信息
+            printInfo(picListData);
+        });
+    }).on('error', function() {
+        console.log('获取数据出错！');
     });
-    // 数据获取结束
-    res.on('end', function() {
-        // 通过过滤页面信息获取实际需求的轮播图信息
-        let picListData = filterSlideList(html);
-        // 打印信息
-        printInfo(picListData);
-    });
-}).on('error', function() {
-    console.log('获取数据出错！');
-});
 }
 
 
