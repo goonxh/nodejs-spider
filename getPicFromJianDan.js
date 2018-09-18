@@ -9,7 +9,7 @@ let fs = require("fs");
 let cheerio = require("cheerio");
 let request = require("request");
 
-for(let i=1;i<39;i++) {
+for(let i=1;i<33;i++) {
     let url = `http://i.jandan.net/ooxx/page-${i}#comments`;
     http.get(url, function(res) {
         let html = '';
@@ -83,10 +83,10 @@ function printInfo(picListData) {
         let dirname = pic_src.substring(firstIndex,lastIndex);
         //console.log(dirname)
         //fs.mkdirSync(`../dist/static/img/${dirname}`);
-        request({uri: 'http:'+pic_src, encoding:'binary'}).pipe(fs.createWriteStream(path.join(`jiandan_large`,`${dirname}.jpg`)));
-        console.log('\n');
-        }
-    });
+        request({uri: 'http:'+pic_src, encoding:'binary'}).on('error',(err)=>{console.log(err)}).pipe(fs.createWriteStream(path.join(`jiandan_large`,`${dirname}.jpg`)));
+                    console.log('\n');
+                    }
+                });
 }
 
 /*
