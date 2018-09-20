@@ -4,7 +4,9 @@
 ## getPicFromJiandan
 
 > npm install
+
 > node getPicFromJianDan.js
+
 爬取的是煎蛋网的妹子图，一次性爬取了第一页到第三十三页的近800张图片。
 
 url: http://i.jandan.net/ooxx/page-1#comments ~ http://i.jandan.net/ooxx/page-33#comments
